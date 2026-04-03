@@ -1,0 +1,55 @@
+CREATE TABLE IF NOT EXISTS recipes (
+    id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(255) NOT NULL,
+    instructions TEXT NOT NULL,
+    prep_time   INT UNSIGNED DEFAULT 0 COMMENT 'Zubereitungszeit in Minuten',
+    cook_time   INT UNSIGNED DEFAULT 0 COMMENT 'Kochzeit in Minuten',
+    servings    INT UNSIGNED DEFAULT 4,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_title (title),
+    FULLTEXT INDEX ft_title (title)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS recipe_images (
+    id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    recipe_id   INT UNSIGNED NOT NULL,
+    image_path  VARCHAR(500) NOT NULL,
+    sort_order  TINYINT UNSIGNED DEFAULT 0,
+    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS ingredients (
+    id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    INDEX idx_name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
+    id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    recipe_id     INT UNSIGNED NOT NULL,
+    ingredient_id INT UNSIGNED NOT NULL,
+    quantity      DECIMAL(8,2) DEFAULT NULL,
+    unit          VARCHAR(50)  DEFAULT NULL,
+    FOREIGN KEY (recipe_id)     REFERENCES recipes(id)     ON DELETE CASCADE,
+    FOREIGN KEY (ingredient_id) REFERENCES ingredients(id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS tags (
+    id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name  VARCHAR(100) NOT NULL UNIQUE,
+    color CHAR(7) NOT NULL DEFAULT '#6366f1' COMMENT 'Hex-Farbcode'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS recipe_tags (
+    recipe_id INT UNSIGNED NOT NULL,
+    tag_id    INT UNSIGNED NOT NULL,
+    PRIMARY KEY (recipe_id, tag_id),
+    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id)    REFERENCES tags(id)     ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS _migrations (
+    filename VARCHAR(255) PRIMARY KEY,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
