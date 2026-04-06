@@ -8,6 +8,11 @@ const routes = [
     component: HomeView,
   },
   {
+    path: '/recipe/new',
+    name: 'recipe-create',
+    component: () => import('../views/RecipeCreateView.vue'),
+  },
+  {
     path: '/recipe/:id',
     name: 'recipe',
     component: () => import('../views/RecipeDetailView.vue'),

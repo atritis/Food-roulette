@@ -4,7 +4,7 @@
     <SearchFilters @update="onFiltersUpdate" />
 
     <div class="home__actions">
-      <button class="btn btn--primary" @click="showCreateForm = true">
+      <button class="btn btn--primary" @click="router.push({ name: 'recipe-create' })">
         + Neues Rezept
       </button>
     </div>
@@ -22,9 +22,6 @@
       Keine Rezepte gefunden.
     </p>
 
-    <OverlayModal v-if="showCreateForm" @close="showCreateForm = false">
-      <RecipeForm @created="onRecipeCreated" @cancel="showCreateForm = false" />
-    </OverlayModal>
   </div>
 </template>
 
@@ -35,13 +32,10 @@ import { useRecipeStore } from '../stores/recipeStore'
 import SearchBar from '../components/SearchBar.vue'
 import SearchFilters from '../components/SearchFilters.vue'
 import RecipeGrid from '../components/RecipeGrid.vue'
-import OverlayModal from '../components/OverlayModal.vue'
-import RecipeForm from '../components/RecipeForm.vue'
 
 const store = useRecipeStore()
 const router = useRouter()
 
-const showCreateForm = ref(false)
 const hasSearched = ref(false)
 const currentQuery = ref('')
 const filters = ref({
@@ -79,10 +73,6 @@ function onFiltersUpdate(newFilters) {
   }
 }
 
-function onRecipeCreated(recipe) {
-  showCreateForm.value = false
-  router.push({ name: 'recipe', params: { id: recipe.id } })
-}
 </script>
 
 <style lang="scss">

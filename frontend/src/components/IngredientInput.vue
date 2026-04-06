@@ -40,25 +40,28 @@
         step="0.25"
         min="0"
       />
-      <select
+      <input
+        type="text"
         class="form-input ingredient-input__unit"
+        placeholder="Einheit"
+        list="unit-suggestions"
         :value="item.unit"
-        @change="updateField(index, 'unit', $event.target.value)"
-      >
-        <option value="">Einheit</option>
-        <option value="g">g</option>
-        <option value="kg">kg</option>
-        <option value="ml">ml</option>
-        <option value="l">l</option>
-        <option value="TL">TL</option>
-        <option value="EL">EL</option>
-        <option value="Tasse">Tasse</option>
-        <option value="Stück">Stück</option>
-        <option value="Prise">Prise</option>
-        <option value="Bund">Bund</option>
-        <option value="Scheibe">Scheibe</option>
-        <option value="n. B.">n. B.</option>
-      </select>
+        @input="updateField(index, 'unit', $event.target.value)"
+      />
+      <datalist id="unit-suggestions">
+        <option value="g" />
+        <option value="kg" />
+        <option value="ml" />
+        <option value="l" />
+        <option value="TL" />
+        <option value="EL" />
+        <option value="Tasse" />
+        <option value="Stück" />
+        <option value="Prise" />
+        <option value="Bund" />
+        <option value="Scheibe" />
+        <option value="n. B." />
+      </datalist>
       <button
         type="button"
         class="btn btn--ghost btn--icon ingredient-input__remove"
@@ -150,29 +153,19 @@ function onBlur() {
   }
 
   &__row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 5rem 6rem auto;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
     align-items: flex-start;
   }
 
   &__name-wrap {
-    flex: 2;
     position: relative;
-  }
-
-  &__qty {
-    width: 5rem;
-    flex-shrink: 0;
-  }
-
-  &__unit {
-    width: 6rem;
-    flex-shrink: 0;
+    min-width: 0;
   }
 
   &__remove {
-    flex-shrink: 0;
     font-size: 1.25rem;
   }
 
