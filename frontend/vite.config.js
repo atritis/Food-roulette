@@ -12,14 +12,14 @@ export default defineConfig({
         name: 'Food Roulette',
         short_name: 'FoodRoulette',
         description: 'Rezeptverwaltung mit Zufallsvorschlägen',
-        theme_color: '#6366f1',
-        background_color: '#0f172a',
+        theme_color: '#1F4D2B',
+        background_color: '#F2E9D8',
         display: 'standalone',
         start_url: '/food-roulette/',
         icons: [
-          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       },
       workbox: {
