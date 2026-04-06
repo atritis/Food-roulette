@@ -4,10 +4,10 @@ services:
     container_name: food-roulette-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: Frigide9!
       MYSQL_DATABASE: food_roulette
       MYSQL_USER: foodapp
-      MYSQL_PASSWORD: foodapp_secret
+      MYSQL_PASSWORD: OMD1EleC!
     ports:
       - "3306:3306"
     volumes:

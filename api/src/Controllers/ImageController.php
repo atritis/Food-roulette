@@ -9,9 +9,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ImageController
 {
-    public function upload(Request $request, Response $response, array $args): Response
+    public function upload(Request $request, Response $response, string $id): Response
     {
-        $recipeId = (int)$args['id'];
+        $recipeId = (int)$id;
 
         if (!Recipe::findById($recipeId)) {
             return $this->json($response, ['error' => 'Recipe not found'], 404);
@@ -64,9 +64,9 @@ class ImageController
         return $this->json($response, $created, 201);
     }
 
-    public function delete(Request $request, Response $response, array $args): Response
+    public function delete(Request $request, Response $response, string $id): Response
     {
-        $imageId = (int)$args['id'];
+        $imageId = (int)$id;
         $image = RecipeImage::delete($imageId);
 
         if (!$image) {

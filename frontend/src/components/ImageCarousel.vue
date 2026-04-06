@@ -2,7 +2,7 @@
   <div class="carousel" v-if="images.length">
     <div class="carousel__viewport">
       <img
-        :src="`/api/uploads/${images[currentIndex].image_path}`"
+        :src="`${baseUrl}api/uploads/${images[currentIndex].image_path}`"
         :alt="`Bild ${currentIndex + 1}`"
         class="carousel__image"
       />
@@ -35,6 +35,8 @@
 
 <script setup>
 import { ref } from 'vue'
+
+const baseUrl = import.meta.env.BASE_URL
 
 const props = defineProps({
   images: { type: Array, default: () => [] },

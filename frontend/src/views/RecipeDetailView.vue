@@ -29,7 +29,7 @@
           :key="img.id"
           class="detail__existing-image"
         >
-          <img :src="`/api/uploads/${img.image_path}`" :alt="recipe.title" />
+          <img :src="`${baseUrl}api/uploads/${img.image_path}`" :alt="recipe.title" />
           <button class="detail__image-remove" @click="removeExistingImage(img.id)">&times;</button>
         </div>
       </div>
@@ -61,6 +61,7 @@
       <template v-if="!isEditing">
         <span v-if="recipe.prep_time">&#9201; {{ recipe.prep_time }} Min. Vorbereitung</span>
         <span v-if="recipe.cook_time">&#127859; {{ recipe.cook_time }} Min. Kochen</span>
+        <span v-if="recipe.servings">&#128101; {{ recipe.servings }} Portionen</span>
         <span>Erstellt: {{ formatDate(recipe.created_at) }}</span>
       </template>
       <template v-else>
@@ -136,6 +137,8 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
+
+const baseUrl = import.meta.env.BASE_URL
 import { useRoute, useRouter } from 'vue-router'
 import { useRecipeStore } from '../stores/recipeStore'
 import { usePortionAdjust } from '../composables/usePortionAdjust'

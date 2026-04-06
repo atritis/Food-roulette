@@ -8,6 +8,12 @@ use Slim\Middleware\BodyParsingMiddleware;
 
 $app = Bridge::create();
 
+// Set base path if deployed in a subdirectory (e.g. APP_BASE_PATH=/food-roulette)
+$basePath = getenv('APP_BASE_PATH') ?: '';
+if ($basePath) {
+    $app->setBasePath($basePath);
+}
+
 // Middleware (order matters: last added = first executed)
 $app->addBodyParsingMiddleware();
 $app->add(new CorsMiddleware());

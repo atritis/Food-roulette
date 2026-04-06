@@ -6,7 +6,7 @@
     <div class="recipe-card__image-wrap">
       <img
         v-if="recipe.images && recipe.images.length"
-        :src="`/api/uploads/${recipe.images[0].image_path}`"
+        :src="`${baseUrl}api/uploads/${recipe.images[0].image_path}`"
         :alt="recipe.title"
         class="recipe-card__image"
         loading="lazy"
@@ -24,6 +24,9 @@
         <span v-if="recipe.cook_time" class="recipe-card__time">
           &#127859; {{ recipe.cook_time }} Min. Kochen
         </span>
+        <span v-if="recipe.servings" class="recipe-card__time">
+          &#128101; {{ recipe.servings }} Portionen
+        </span>
       </div>
       <div v-if="recipe.tags && recipe.tags.length" class="recipe-card__tags">
         <span
@@ -40,6 +43,8 @@
 </template>
 
 <script setup>
+const baseUrl = import.meta.env.BASE_URL
+
 defineProps({
   recipe: {
     type: Object,

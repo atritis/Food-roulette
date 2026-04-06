@@ -35,9 +35,9 @@ class RecipeController
         return $this->json($response, $recipes);
     }
 
-    public function show(Request $request, Response $response, array $args): Response
+    public function show(Request $request, Response $response, string $id): Response
     {
-        $recipe = Recipe::findById((int)$args['id']);
+        $recipe = Recipe::findById((int)$id);
 
         if (!$recipe) {
             return $this->json($response, ['error' => 'Recipe not found'], 404);
@@ -60,9 +60,9 @@ class RecipeController
         return $this->json($response, $recipe, 201);
     }
 
-    public function update(Request $request, Response $response, array $args): Response
+    public function update(Request $request, Response $response, string $id): Response
     {
-        $id = (int)$args['id'];
+        $id = (int)$id;
         $existing = Recipe::findById($id);
 
         if (!$existing) {
@@ -76,9 +76,9 @@ class RecipeController
         return $this->json($response, $recipe);
     }
 
-    public function delete(Request $request, Response $response, array $args): Response
+    public function delete(Request $request, Response $response, string $id): Response
     {
-        $id = (int)$args['id'];
+        $id = (int)$id;
 
         if (!Recipe::findById($id)) {
             return $this->json($response, ['error' => 'Recipe not found'], 404);
