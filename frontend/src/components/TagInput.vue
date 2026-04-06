@@ -75,7 +75,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const api = useApi()
 const tagName = ref('')
-const tagColor = ref('#6366f1')
+const tagColor = ref('#1F4D2B')
 const allTags = ref([])
 const showSuggestions = ref(false)
 
@@ -114,7 +114,7 @@ function addTag() {
 
   emit('update:modelValue', [...props.modelValue, { name, color: tagColor.value }])
   tagName.value = ''
-  tagColor.value = '#6366f1'
+  tagColor.value = '#1F4D2B'
   showSuggestions.value = false
 }
 
